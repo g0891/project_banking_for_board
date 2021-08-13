@@ -1,0 +1,6 @@
+databaseChangeLog:
+
+  - include: { relativeToChangelogFile: true, file: migrations/changelog-hibernate-sequence.yaml }
+  - include: { relativeToChangelogFile: true, file: migrations/changelog-account-table.yaml }
+  - include: { relativeToChangelogFile: true, file: migrations/changelog-transaction-table.yaml }
+

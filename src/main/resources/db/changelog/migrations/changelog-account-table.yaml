@@ -1,0 +1,29 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 000000-create-account-table
+      author: g0891
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: person_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: balance
+                  type: bigint
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+
+
