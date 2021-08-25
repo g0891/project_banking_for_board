@@ -61,7 +61,7 @@ public class BankAccountServiceImpl implements BankAccountService{
     @Override
     public void addMoney(Long personId, TransactionDto transactionDTO) {
         if (transactionDTO.getAmount() <= 0) {
-            throw new BankIncorrectAmountException(String.format("It's not possible to add a non-positive amount = %d.", transactionDTO.getAmount()));
+            throw new BankIncorrectAmountException("BankIncorrectAmountException.nonPositive");
         }
 
         BankAccountEntity bankAccountEntity = bankAccountRepository
@@ -78,11 +78,11 @@ public class BankAccountServiceImpl implements BankAccountService{
     @Override
     public void payForProject(Long personId, TransactionDto transactionDTO) {
         if (transactionDTO.getAmount() <= 0) {
-            throw new BankIncorrectAmountException(String.format("It's not possible to pay a non-positive amount = %d.", transactionDTO.getAmount()));
+            throw new BankIncorrectAmountException("BankIncorrectAmountException.nonPositive");
         }
 
         if (transactionDTO.getProjectId() == null) {
-            throw new BankProjectsDetailsException("Project Id should be supplied, but nothing found");
+            throw new BankProjectsDetailsException("BankProjectsDetailsException.noProjectProvided");
         }
 
         BankAccountEntity bankAccountEntity = bankAccountRepository
@@ -90,7 +90,7 @@ public class BankAccountServiceImpl implements BankAccountService{
                 .orElseGet(() -> createBankAccount(personId));
 
         if (bankAccountEntity.getBalance() < transactionDTO.getAmount()) {
-            throw new BankInsufficientFundsException("There is not enough money to provide payment.");
+            throw new BankInsufficientFundsException("BankInsufficientFundsException.notEnoughMoney");
         }
 
         BankTransactionEntity bankTransactionEntity = new BankTransactionEntity(null,bankAccountEntity, -transactionDTO.getAmount(), transactionDTO.getProjectId());
